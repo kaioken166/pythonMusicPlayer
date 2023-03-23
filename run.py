@@ -3,8 +3,9 @@ from tkinter.ttk import Separator
 from GUI.album_label import MyLabel
 from GUI.button_function import MyButton
 from tkinter import *
+from tkinter import ttk
+
 # from tkinter.ttk import *
-import pygame
 
 # Create a root object
 root = tk.Tk()
@@ -92,19 +93,35 @@ repeat_button.grid(row=0, column=9, padx=5, pady=5)
 separator3 = Separator(button_frame, orient=VERTICAL)
 separator3.grid(row=0, column=10, sticky="ns")
 
-# Initialize pygame mixer
-pygame.mixer.init()
-
 # Volume Frame
 vol_frame = Frame(root)
 vol_frame.grid(row=3, column=1, pady=10, sticky='e')
 
 # Mute button
-mute_button = MyButton(vol_frame, image_path='image/volume-up.png')
+
+muted = False
+
+
+def mute_button_callback():
+    global muted
+    if muted:
+        mute_button.change_image(image_path='image/volume-up.png')
+        muted = False
+        vol_frame.update()
+    else:
+        mute_button.change_image(image_path='image/mute.png')
+        muted = True
+        vol_frame.update()
+
+
+mute_button = MyButton(vol_frame, image_path='image/volume-up.png',
+                       command=lambda: mute_button_callback())
+
 mute_button.grid(row=0, column=0, pady=5, padx=5)
 
 # Create a scale widget with horizontal orientation and range from 0 to 100
-volume_slider = Scale(vol_frame, from_=100, to=0, orient=HORIZONTAL)
+volume_slider = ttk.Scale(vol_frame, from_=0, to=100, orient=HORIZONTAL)  # ttk for better UI
+volume_slider.set(100)
 
 # Pack the scale widget below the button frame
 volume_slider.grid(row=0, column=1, padx=5, pady=10)
