@@ -19,7 +19,6 @@ class MyButton(tk.Button):
         self.config(image=self.photo, command=command, bd=0, highlightthickness=0)
         self.bind("<Enter>", on_enter)
         self.bind("<Leave>", on_leave)
-        self.current_image = 1
 
     def change_image(self, image_path):
         self.img = Image.open(image_path)
