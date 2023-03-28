@@ -5,10 +5,15 @@ from GUI.button_function import MyButton
 from tkinter import *
 from tkinter import ttk
 
+from GUI.playlist import Playlist
+from controller.songController import SongController
+
 # from tkinter.ttk import *
 
 # Create a root object
 root = tk.Tk()
+
+# root.configure(bg="#353839")
 
 # Set the root title
 root.title("Music Player")
@@ -32,13 +37,14 @@ filemenu.add_command(label="Exit", command=root.quit)
 menubar.add_cascade(label="File", menu=filemenu)
 
 # Add the view menu to the menu bar with a label "View"
-menubar.add_cascade(label="Playlist")
+menubar.add_cascade(label="Playlist", command=lambda: my_playlist.open_playlist())
 
 # Configure the root to use the menu bar
 root.config(menu=menubar)
 
 # Start
 label_frame = tk.Frame(root)
+# label_frame.config(background='#353839')
 label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
 album_image = MyLabel(label_frame, image_path='album.jpg', img_size=(515, 515))
@@ -54,6 +60,7 @@ current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
 
 # Create a frame for the buttons
 button_frame = Frame(root)
+# button_frame.config(background='#353839')
 button_frame.grid(row=3, column=0, pady=10, sticky='w')
 
 # Create content inside button frame
@@ -65,6 +72,9 @@ time_label.grid(row=0, column=0, pady=5, padx=10)
 # Add seperator
 separator = Separator(button_frame, orient=VERTICAL)
 separator.grid(row=0, column=1, sticky="ns")
+
+# new_song = SongController()
+
 
 play_button = MyButton(button_frame, image_path='image/play-button.png', img_size=(30, 30))
 play_button.grid(row=0, column=2, pady=5, padx=5)
@@ -125,6 +135,28 @@ volume_slider.set(100)
 
 # Pack the scale widget below the button frame
 volume_slider.grid(row=0, column=1, padx=5, pady=10)
+
+# Create Playlist frame
+list_frame = Frame(root)
+
+# Create a listbox to display songs
+my_playlist = Playlist(list_frame)
+
+my_playlist.add_song("Name 1")
+my_playlist.add_song("Name 2")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
+my_playlist.add_song("Name 3")
 
 # End
 
