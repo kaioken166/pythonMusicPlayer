@@ -13,9 +13,9 @@ class SongController:
         self.__mixer.init()
 
     def play_song(self, path):
-        self.pathCurrentSong = path
-        self.mixer.music.load(path)
-        self.mixer.music.play()
+        self.__path_current_song = path
+        self.__mixer.music.load(path)
+        self.__mixer.music.play()
 
     def play_in_time(self, start, isPercent=True):
 
@@ -24,7 +24,7 @@ class SongController:
         else:
             time = start
 
-        self.mixer.music.play(start=time)
+        self.__mixer.music.play(start=time)
 
     def get_time(self, song):
         song = MP3(self.__path_current_song)
@@ -32,12 +32,12 @@ class SongController:
         return song_length
 
     def pause_music(self):
-        self.pause = True
-        self.mixer.music.pause()
+        self.__pause = True
+        self.__mixer.music.pause()
 
     def unpause_music(self):
-        self.pause = False
-        self.mixer.music.unpause()
+        self.__pause = False
+        self.__mixer.music.unpause()
 
     def get_img(self):
         audio_file = eyed3.load(self.__path_current_song)
@@ -52,10 +52,12 @@ class SongController:
 
     def check_if_finished(self):
         # return True if finish
-        return not (self.pause or pygame.mixer.music.get_busy())
+        return not (self.__pause or pygame.mixer.music.get_busy())
 
-    def get_info(self):
-        song = eyed3.load(self.__path_current_song)
+    def get_info(self, path=1):
+        if path == 1:
+            path = self.__path_current_song
+        song = eyed3.load(path)
         return {
             'album': song.tag.album,
             'title': song.tag.album,

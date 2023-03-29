@@ -7,10 +7,10 @@ class playlistController:
         self.__index_current = 0
 
     def add_song(self):
-        songs = filedialog.askopenfilename(
+        songs = filedialog.askopenfilenames(
             title="Choose A Song", filetypes=(("mp3 Files", "*.mp3"), ))
         for song in songs:
-            self.song_arr.append(song)
+            self.__song_arr.append(song)
 
     def get_song_arr(self):
         return self.__song_arr
