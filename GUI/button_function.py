@@ -7,7 +7,7 @@ def on_enter(e):
 
 
 def on_leave(e):
-    e.widget['background'] = '#ffffff'
+    e.widget['background'] = '#f0f0f0'
 
 
 class MyButton(tk.Button):
