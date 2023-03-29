@@ -7,6 +7,7 @@ from tkinter import ttk
 
 from GUI.playlist import Playlist
 from controller.songController import SongController
+from controller.playlistController import playlistController
 
 # from tkinter.ttk import *
 
@@ -27,9 +28,15 @@ root.grid_columnconfigure(0, weight=1)
 # Create a menu bar
 menubar = tk.Menu(root)
 
+
+def add_song_and_playlist():
+    playlist.add_song()
+    my_playlist.add_to_playlist(playlist.get_song_arr())
+
+
 # Create a file menu and add some commands
 filemenu = tk.Menu(menubar, tearoff=0)
-filemenu.add_command(label="Open")
+filemenu.add_command(label="Open", command=lambda: add_song_and_playlist())
 filemenu.add_separator()
 filemenu.add_command(label="Exit", command=root.quit)
 
@@ -41,6 +48,9 @@ menubar.add_cascade(label="Playlist", command=lambda: my_playlist.open_playlist(
 
 # Configure the root to use the menu bar
 root.config(menu=menubar)
+
+song = SongController()
+playlist = playlistController()
 
 # Start
 label_frame = tk.Frame(root)
@@ -73,10 +83,8 @@ time_label.grid(row=0, column=0, pady=5, padx=10)
 separator = Separator(button_frame, orient=VERTICAL)
 separator.grid(row=0, column=1, sticky="ns")
 
-# new_song = SongController()
-
-
-play_button = MyButton(button_frame, image_path='image/play-button.png', img_size=(30, 30))
+play_button = MyButton(button_frame, image_path='image/play-button.png', img_size=(30, 30),
+                       command=lambda: song.play_song(path='song/song.mp3'))
 play_button.grid(row=0, column=2, pady=5, padx=5)
 
 pause_button = MyButton(button_frame, image_path='image/pause-button.png')
@@ -142,21 +150,26 @@ list_frame = Frame(root)
 # Create a listbox to display songs
 my_playlist = Playlist(list_frame)
 
-my_playlist.add_song("Name 1")
-my_playlist.add_song("Name 2")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
-my_playlist.add_song("Name 3")
+# pathSong1 = playlist.get_song_arr()[0]  # path
+# info = song.get_info(path=pathSong1)
+# my_playlist.add_song(info.get('title'))
+
+# my_playlist.add_song("Name 1")
+# my_playlist.add_song("Name 2")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+# my_playlist.add_song("Name 3")
+
 
 # End
 
