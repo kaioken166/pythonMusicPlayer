@@ -44,7 +44,8 @@ filemenu.add_command(label="Exit", command=root.quit)
 menubar.add_cascade(label="File", menu=filemenu)
 
 # Add the view menu to the menu bar with a label "View"
-menubar.add_cascade(label="Playlist", command=lambda: my_playlist.open_playlist())
+# menubar.add_cascade(label="Playlist", command=lambda: [my_playlist.open_playlist(),print(2)], menubar = )
+menubar.add_command(label="Playlist", command=lambda: [my_playlist.open_playlist(),print(2)])
 
 # Configure the root to use the menu bar
 root.config(menu=menubar)
