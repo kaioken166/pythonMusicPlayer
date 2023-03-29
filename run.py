@@ -14,8 +14,6 @@ from controller.playlistController import playlistController
 # Create a root object
 root = tk.Tk()
 
-# root.configure(bg="#353839")
-
 # Set the root title
 root.title("Music Player")
 
@@ -44,8 +42,7 @@ filemenu.add_command(label="Exit", command=root.quit)
 menubar.add_cascade(label="File", menu=filemenu)
 
 # Add the view menu to the menu bar with a label "View"
-# menubar.add_cascade(label="Playlist", command=lambda: [my_playlist.open_playlist(),print(2)], menubar = )
-menubar.add_command(label="Playlist", command=lambda: [my_playlist.open_playlist(),print(2)])
+menubar.add_command(label="Playlist", command=lambda: my_playlist.open_playlist())
 
 # Configure the root to use the menu bar
 root.config(menu=menubar)
@@ -55,15 +52,14 @@ playlist = playlistController()
 
 # Start
 label_frame = tk.Frame(root)
-# label_frame.config(background='#353839')
 label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
-album_image = MyLabel(label_frame, image_path='album.jpg', img_size=(515, 515))
+album_image = MyLabel(label_frame, image_path='image/Music_Isometric.png', img_size=(600, 515))
 album_image.pack(fill='x')  # inside label_frame
 
 # Create progress bar
 song_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
-song_slider.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10)
+song_slider.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10, padx=20)
 
 # Create a label to show the current song
 current_song = Label(root, text="No song selected", font=("Arial", 16))
@@ -150,27 +146,6 @@ list_frame = Frame(root)
 
 # Create a listbox to display songs
 my_playlist = Playlist(list_frame)
-
-# pathSong1 = playlist.get_song_arr()[0]  # path
-# info = song.get_info(path=pathSong1)
-# my_playlist.add_song(info.get('title'))
-
-# my_playlist.add_song("Name 1")
-# my_playlist.add_song("Name 2")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-# my_playlist.add_song("Name 3")
-
 
 # End
 
