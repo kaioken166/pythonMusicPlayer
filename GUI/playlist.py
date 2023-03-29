@@ -20,12 +20,13 @@ class Playlist:
         scrollbar.config(command=self.song_list.yview)
 
     def open_playlist(self):
-        if self.pl_state:
-            self.list_frame.grid_remove()
-            self.pl_state = False
-        else:
-            self.list_frame.grid(row=4, column=0, pady=10, columnspan=3, sticky='ew')
-            self.pl_state = True
+        # if self.pl_state:
+        #     self.list_frame.grid_remove()
+        #     self.pl_state = False
+        # else:
+        #     self.pl_state = True
+        print(1)
+        self.list_frame.grid(row=4, column=0, pady=10, columnspan=3, sticky='ew')
 
     def add_song(self, song):
         self.song_list.insert(END, song)
@@ -33,6 +34,6 @@ class Playlist:
     def add_to_playlist(self, songArr):
         for pathSong in songArr:
             info = self.song.get_info(path=pathSong)
-            self.add_song(info.get('title'))
+            self.add_song(info.get('name'))
             print(str(info))
         print(str(self.song_list))
