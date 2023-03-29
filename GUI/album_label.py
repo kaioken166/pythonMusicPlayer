@@ -18,3 +18,7 @@ class MyLabel(tk.Label):
         self.photo = ImageTk.PhotoImage(self.img)
         self.image = self.photo
         self.config(image=self.photo)
+
+    def change_image_2(self, img):  # (img=get_img)
+        self.image = img
+        self.config(image=img)
