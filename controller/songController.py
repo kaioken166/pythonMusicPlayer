@@ -52,7 +52,7 @@ class SongController:
 
     def check_if_finished(self):
         # return True if finish
-        return not (self.__pause or pygame.mixer.music.get_busy())
+        return not (self.__pause or self.__mixer.music.get_busy())
 
     def get_info(self, path=1):
         if path == 1:
@@ -61,5 +61,6 @@ class SongController:
         return {
             'album': song.tag.album,
             'title': song.tag.album,
-            'artist': song.tag.artist
+            'artist': song.tag.artist,
+            'name': path.split('/')[-1][:-4]
         }
