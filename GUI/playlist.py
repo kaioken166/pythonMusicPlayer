@@ -5,8 +5,8 @@ from controller.songController import SongController
 
 class Playlist:
     def __init__(self, list_frame):
-        self.playlist = playlistController()
-        self.song = SongController()
+        self.play_list_controller = playlistController()
+        self.song_controller = SongController()
         self.song_list = Listbox(list_frame)
         self.song_list.pack(side=LEFT, fill=BOTH, padx=10, pady=10, expand=True)
         self.list_frame = list_frame
@@ -28,50 +28,74 @@ class Playlist:
             self.pl_state = True
             self.list_frame.grid(row=4, column=0, pady=10, columnspan=3, sticky='ew')
 
-    def add_song(self, song):
-        self.song_list.insert(END, song)
-
-    def add_to_playlist(self, songArr):
+    def add_songs(self, songArr):
         for pathSong in songArr:
-            info = self.song.get_info(path=pathSong)
-            self.add_song(info.get('name'))
+            info = self.song_controller.get_info(path=pathSong)
+            self.song_list.insert(END, info.get('name'))
+            
+    def open_files(self):
+        self.play_list_controller.add_song()
+        self.add_songs(self.play_list_controller.get_song_arr())
 
     def play_song_GUI(self):  # current_song is a label
         # Get the index of the selected song
         index = self.song_list.curselection()
-
         # Check if the song list is empty or not
         if index:
             # Get the first element of the index tuple
-            index = index[0]
-        else:
-            # Set the index to 0 to select the first song
-            index = 0
+            if self.play_list_controller.get_index_current() == index[0]:
+                if self.song_controller.check_pause():
+                    self.song_controller.pause_music()
+                return
+            self.play_list_controller.set_index_current(index=index[0])
+            
+        index = self.play_list_controller.get_index_current()
 
         # Get the name of the selected song
         name = self.song_list.get(index)
 
         # Update the label with the name of the selected song
-        current_song_label.config(text=f"Playing {name}")
+        # current_song_label.config(text=f"Playing {name}")
+        path = self.play_list_controller.get_song(index=index)
+        self.song_controller.play_song(path=path)
+        self.song_list.selection_clear(0, END)
+        self.song_list.selection_set(index)
 
     def next_song_GUI(self):
         # Get the current selection index
-        current_index = self.song_list.curselection()
+        index = self.play_list_controller.next_song()
 
-        # Check if it is empty
-        if len(current_index) == 0:
-            # No item is selected, use a default index
-            current_index = 0
-        else:
-            # Convert it to an integer
-            current_index = current_index[0]
-
-        # Increment it by one
-        next_index = (current_index + 1) % self.song_list.size()
+        # Play the new song
+        path = self.play_list_controller.get_song(index=index)
+        self.song_controller.play_song(path=path)
 
         # Select the next item in the listbox
         self.song_list.selection_clear(0, END)
-        self.song_list.selection_set(next_index)
+        self.song_list.selection_set(index)
+
+    def previous_song_GUI(self):
+        # Get the current selection index
+        index = self.play_list_controller.previous_song()
 
         # Play the new song
-        self.play_song_GUI()
+        path = self.play_list_controller.get_song(index=index)
+        self.song_controller.play_song(path=path)
+        self.song_list.selection_clear(0, END)
+        self.song_list.selection_set(index)
+
+        # Select the next item in the listbox
+        self.song_list.selection_clear(0, END)
+        self.song_list.selection_set(index)
+        
+    def mute_song(self,mute_button):
+        if self.song.mute_music():
+            mute_button.change_image(image_path='image/volume-up.png')
+        else:
+            mute_button.change_image(image_path='image/mute.png')
+            
+    def pause_song(self):
+        self.song_controller.pause_music()
+        
+    def stop_song(self):
+        self.song_controller.stop_music()
+        self.song_list.selection_clear(0, END)

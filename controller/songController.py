@@ -9,6 +9,7 @@ class SongController:
     def __init__(self):
         self.__path_current_song = ''
         self.__pause = False
+        self.__mute = False
         self.__mixer = pygame.mixer
         self.__mixer.init()
 
@@ -31,13 +32,18 @@ class SongController:
         song_length = song.info.length
         return song_length
 
-    def pause_music(self):
-        self.__pause = True
-        self.__mixer.music.pause()
 
-    def unpause_music(self):
-        self.__pause = False
-        self.__mixer.music.unpause()
+    def check_pause(self):
+        return self.__pause
+    
+    def pause_music(self):
+        if self.__pause:
+            self.__pause = False
+            self.__mixer.music.unpause()
+        else:
+            self.__pause = True
+            self.__mixer.music.pause()
+        return self.__pause
 
     def get_img(self):
         audio_file = eyed3.load(self.__path_current_song)
@@ -64,3 +70,15 @@ class SongController:
             'artist': song.tag.artist,
             'name': path.split('/')[-1][:-4]
         }
+        
+    def mute_music(self):
+        if self.__mute:
+            self.__mute = False
+            self.__mixer.music.set_volume(1)
+        else:
+            self.__mute = True
+            self.__mixer.music.set_volume(0)
+        return self.__mute
+    
+    def stop_music(self):
+        self.__mixer.music.stop()
