@@ -116,7 +116,7 @@ next_button.grid(row=0, column=7, padx=5, pady=5)
 shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png',command=lambda:my_player.shuffle())
 shuffle_button.grid(row=0, column=8, padx=5, pady=5)
 
-repeat_button = MyButton(button_frame, image_path='image/repeat-off.png')
+repeat_button = MyButton(button_frame, image_path='image/repeat-off.png',command=lambda:my_player.repeat(repeat_button=repeat_button))
 repeat_button.grid(row=0, column=9, padx=5, pady=5)
 
 separator3 = Separator(button_frame, orient=VERTICAL)
