@@ -116,7 +116,7 @@ next_button = MyButton(button_frame, image_path='image/next-button.png', command
 
 next_button.grid(row=0, column=7, padx=5, pady=5)
 
-shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png')
+shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png',command=lambda:my_player.shuffle())
 shuffle_button.grid(row=0, column=8, padx=5, pady=5)
 
 repeat_button = MyButton(button_frame, image_path='image/repeat-off.png')
@@ -152,7 +152,9 @@ mute_button = MyButton(vol_frame, image_path='image/volume-up.png', command=lamb
 mute_button.grid(row=0, column=0, pady=5, padx=5)
 
 # Create a scale widget with horizontal orientation and range from 0 to 100
-volume_slider = ttk.Scale(vol_frame, from_=0, to=100, orient=HORIZONTAL)  # ttk for better UI
+volume_slider = ttk.Scale(vol_frame, from_=0, to=1, orient=HORIZONTAL,
+                          command= lambda x: my_player.volume(volume_slider=volume_slider,mute_button=mute_button, value=float(x)) )# ttk for better UI
+# volume_slider = ttk.Scale(vol_frame, from_=0, to=100, orient=HORIZONTAL)
 volume_slider.set(100)
 
 # Pack the scale widget below the button frame
