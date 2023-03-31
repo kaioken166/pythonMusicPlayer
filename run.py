@@ -1,18 +1,16 @@
+import datetime
 import tkinter as tk
-from tkinter.ttk import Separator
-from GUI.album_label import MyLabel
-from GUI.button_function import MyButton
 from tkinter import *
 from tkinter import ttk
+from tkinter.ttk import Separator
+
+# import pygame
+
 
 from GUI.player import Player
+
 from GUI.song import Song
-from controller.songController import SongController
-from controller.playlistController import playlistController
-
-
-
-# from tkinter.ttk import *
+from GUI.timeLabel import TimeLabel
 
 # Create a root object
 root = tk.Tk()
@@ -73,7 +71,7 @@ root.config(menu=menubar)
 label_frame = tk.Frame(root)
 label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
-album_image = MyLabel(label_frame, image_path='image/mute.png', img_size=(600, 515))
+album_image = MyLabel(label_frame, image_path='image/Music_Isometric.png', img_size=(620, 515))
 album_image.pack(fill='x')  # inside label_frame
 
 
@@ -88,7 +86,6 @@ button_frame.grid(row=3, column=0, pady=10, sticky='w')
 
 # Create content inside button frame
 
-
 time_label.grid(row=0, column=0, pady=5, padx=10)
 
 # Add seperator
@@ -96,6 +93,7 @@ separator = Separator(button_frame, orient=VERTICAL)
 separator.grid(row=0, column=1, sticky="ns")
 
 play_button = MyButton(button_frame, image_path='image/play-button.png', img_size=(30, 30),
+
                        command=lambda: my_player.play_song_GUI())
 play_button.grid(row=0, column=2, pady=5, padx=5)
 
@@ -108,10 +106,12 @@ stop_button.grid(row=0, column=4, padx=5, pady=5)
 separator2 = Separator(button_frame, orient=VERTICAL)
 separator2.grid(row=0, column=5, sticky='ns')
 
+
 previous_button = MyButton(button_frame, image_path='image/back-button.png', command=lambda: my_player.previous_song_GUI())
 previous_button.grid(row=0, column=6, padx=5, pady=5)
 
 next_button = MyButton(button_frame, image_path='image/next-button.png', command=lambda: my_player.next_song_GUI())
+
 next_button.grid(row=0, column=7, padx=5, pady=5)
 
 shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png')
@@ -144,8 +144,8 @@ vol_frame.grid(row=3, column=1, pady=10, sticky='e')
 #         vol_frame.update()
 
 
-mute_button = MyButton(vol_frame, image_path='image/volume-up.png',
-                       command=lambda: my_player.mute_song(mute_button= mute_button))
+mute_button = MyButton(vol_frame, image_path='image/volume-up.png', command=lambda: my_player.mute_song(mute_button= mute_button))
+
 
 mute_button.grid(row=0, column=0, pady=5, padx=5)
 
@@ -155,8 +155,6 @@ volume_slider.set(100)
 
 # Pack the scale widget below the button frame
 volume_slider.grid(row=0, column=1, padx=5, pady=10)
-
-
 
 # End
 
