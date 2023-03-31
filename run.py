@@ -2,6 +2,8 @@ import datetime
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from GUI.album_label import MyLabel
+from GUI.button_function import MyButton
 from tkinter.ttk import Separator
 
 # import pygame
