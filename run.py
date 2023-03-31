@@ -1,12 +1,16 @@
+import datetime
 import tkinter as tk
-from tkinter.ttk import Separator
-from GUI.album_label import MyLabel
-from GUI.button_function import MyButton
 from tkinter import *
 from tkinter import ttk
+from tkinter.ttk import Separator
 
+# import pygame
+
+from GUI.album_label import MyLabel
+from GUI.button_function import MyButton
 from GUI.playlist import Playlist
 from GUI.song import Song
+from GUI.timeLabel import TimeLabel
 
 # Create a root object
 root = tk.Tk()
@@ -57,7 +61,7 @@ root.config(menu=menubar)
 label_frame = tk.Frame(root)
 label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
-album_image = MyLabel(label_frame, image_path='image/mute.png', img_size=(600, 515))
+album_image = MyLabel(label_frame, image_path='image/Music_Isometric.png', img_size=(620, 515))
 album_image.pack(fill='x')  # inside label_frame
 
 # Create progress bar
@@ -76,7 +80,8 @@ button_frame.grid(row=3, column=0, pady=10, sticky='w')
 # Create content inside button frame
 
 # Create a Label to display the current time
-time_label = Label(button_frame, text="00:00", font="Arial 16")
+# time_label = Label(button_frame, text="00:00", font="Arial 16")
+time_label = TimeLabel(button_frame)
 time_label.grid(row=0, column=0, pady=5, padx=10)
 
 # Add seperator
@@ -84,7 +89,7 @@ separator = Separator(button_frame, orient=VERTICAL)
 separator.grid(row=0, column=1, sticky="ns")
 
 play_button = MyButton(button_frame, image_path='image/play-button.png', img_size=(30, 30),
-                       command=lambda: my_playlist.play_song_GUI())
+                       command=lambda: [my_playlist.play_song_GUI(current_song), time_label.update_time()])
 play_button.grid(row=0, column=2, pady=5, padx=5)
 
 pause_button = MyButton(button_frame, image_path='image/pause-button.png', command=lambda: my_playlist.pause_song())
@@ -97,10 +102,10 @@ separator2 = Separator(button_frame, orient=VERTICAL)
 separator2.grid(row=0, column=5, sticky='ns')
 
 previous_button = MyButton(button_frame, image_path='image/back-button.png',
-                           command=lambda: my_playlist.previous_song_GUI())
+                           command=lambda: my_playlist.previous_song_GUI(current_song))
 previous_button.grid(row=0, column=6, padx=5, pady=5)
 
-next_button = MyButton(button_frame, image_path='image/next-button.png', command=lambda: my_playlist.next_song_GUI())
+next_button = MyButton(button_frame, image_path='image/next-button.png', command=lambda: my_playlist.next_song_GUI(current_song))
 next_button.grid(row=0, column=7, padx=5, pady=5)
 
 shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png')

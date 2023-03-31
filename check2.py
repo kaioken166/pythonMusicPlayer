@@ -149,7 +149,7 @@ current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
 def play_song():
     # Get the index of the selected song
     index = song_list.curselection()
-
+    print(index)
     # Check if the song list is empty or not
     if index:
         # Get the first element of the index tuple
@@ -168,7 +168,7 @@ def play_song():
 def next_song():
     # Get the current selection index
     current_index = song_list.curselection()
-
+    print(current_index)
     # Check if it is empty
     if len(current_index) == 0:
         # No item is selected, use a default index
@@ -191,7 +191,7 @@ def next_song():
 def previous_song():
     # Get the current selection index
     current_index = song_list.curselection()
-
+    print(current_index)
     # Check if it is empty
     if len(current_index) == 0:
         # No item is selected, use a default index

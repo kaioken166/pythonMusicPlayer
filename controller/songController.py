@@ -27,15 +27,14 @@ class SongController:
 
         self.__mixer.music.play(start=time)
 
-    def get_time(self, song):
+    def get_time(self):
         song = MP3(self.__path_current_song)
         song_length = song.info.length
         return song_length
 
-
     def check_pause(self):
         return self.__pause
-    
+
     def pause_music(self):
         if self.__pause:
             self.__pause = False
@@ -70,7 +69,7 @@ class SongController:
             'artist': song.tag.artist,
             'name': path.split('/')[-1][:-4]
         }
-        
+
     def mute_music(self):
         if self.__mute:
             self.__mute = False
@@ -79,6 +78,6 @@ class SongController:
             self.__mute = True
             self.__mixer.music.set_volume(0)
         return self.__mute
-    
+
     def stop_music(self):
         self.__mixer.music.stop()
