@@ -1,13 +1,17 @@
 from tkinter import *
 from controller.playlistController import playlistController
 from controller.songController import SongController
+import time
 
-
-class Playlist:
-    def __init__(self, list_frame):
+class Player:
+    def __init__(self, list_frame,song_slider,time_label):
+        self.current_time=0
+        self.time_skip=0
         self.play_list_controller = playlistController()
         self.song_controller = SongController()
         self.song_list = Listbox(list_frame)
+        self.song_slider = song_slider
+        self.time_lable =  time_label
         self.song_list.pack(side=LEFT, fill=BOTH, padx=10, pady=10, expand=True)
         self.list_frame = list_frame
         self.pl_state = False
@@ -19,6 +23,9 @@ class Playlist:
         # Attach the scrollbar to the listbox
         self.song_list.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=self.song_list.yview)
+
+    def update_play_song(self):
+        self.time_skip = 0
 
     def open_playlist(self):
         if self.pl_state:
@@ -60,6 +67,8 @@ class Playlist:
         self.song_controller.play_song(path=path)
         self.song_list.selection_clear(0, END)
         self.song_list.selection_set(index)
+        self.update_play_song()
+        self.timer()
 
     def next_song_GUI(self):
         # Get the current selection index
@@ -72,6 +81,8 @@ class Playlist:
         # Select the next item in the listbox
         self.song_list.selection_clear(0, END)
         self.song_list.selection_set(index)
+        self.update_play_song()
+        
 
     def previous_song_GUI(self):
         # Get the current selection index
@@ -86,12 +97,14 @@ class Playlist:
         # Select the next item in the listbox
         self.song_list.selection_clear(0, END)
         self.song_list.selection_set(index)
+        self.update_play_song()
+        
         
     def mute_song(self,mute_button):
-        if self.song.mute_music():
-            mute_button.change_image(image_path='image/volume-up.png')
-        else:
+        if self.song_controller.mute_music():
             mute_button.change_image(image_path='image/mute.png')
+        else:
+            mute_button.change_image(image_path='image/volume-up.png')
             
     def pause_song(self):
         self.song_controller.pause_music()
@@ -99,3 +112,23 @@ class Playlist:
     def stop_song(self):
         self.song_controller.stop_music()
         self.song_list.selection_clear(0, END)
+        
+    def timer(self):
+        if self.song_controller.check_stop():
+            return
+        if  self.current_time == self.song_controller.get_time_len():
+            self.next_song_GUI()
+        elif self.song_slider.get()== self.current_time:
+            self.current_time = int (self.song_controller.get_current_time()) + self.time_skip
+            print(self.current_time)
+            self.song_slider.config(to=self.song_controller.get_time_len())
+            converted_current_time = time.strftime('%M:%S', time.gmtime(self.current_time))
+            self.time_lable.config(text=f'{converted_current_time}')
+            self.song_slider.set(int(self.current_time))
+        else:    
+            self.song_controller.play_in_time(time = self.song_slider.get())
+            self.time_skip = int (self.song_slider.get())
+            self.current_time = int (self.song_controller.get_current_time()) + self.time_skip
+            print("not ",self.current_time)
+            
+        self.time_lable.after(1000, self.timer)
