@@ -7,6 +7,7 @@ from PIL import ImageTk, Image
 class SongController:
 
     def __init__(self):
+        self.__stop = True
         self.__path_current_song = ''
         self.__pause = False
         self.__mute = False
@@ -17,20 +18,20 @@ class SongController:
         self.__path_current_song = path
         self.__mixer.music.load(path)
         self.__mixer.music.play()
+        self.__stop = False
 
-    def play_in_time(self, start, isPercent=True):
-
-        if isPercent:
-            time = self.get_time() / 100 * start
-        else:
-            time = start
-
+    def play_in_time(self, time):
         self.__mixer.music.play(start=time)
 
-    def get_time(self):
-        song = MP3(self.__path_current_song)
-        song_length = song.info.length
-        return song_length
+
+    def get_time_len(self, song=False):
+        if not song:
+            song = self.__path_current_song
+
+
+    def get_current_time(self):
+        return self.__mixer.music.get_pos()/1000 
+
 
     def check_pause(self):
         return self.__pause
@@ -58,7 +59,7 @@ class SongController:
     def check_if_finished(self):
         # return True if finish
         return not (self.__pause or self.__mixer.music.get_busy())
-
+    
     def get_info(self, path=1):
         if path == 1:
             path = self.__path_current_song
@@ -81,3 +82,7 @@ class SongController:
 
     def stop_music(self):
         self.__mixer.music.stop()
+        
+    def check_stop(self):
+        return self.__stop
+
