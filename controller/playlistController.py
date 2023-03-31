@@ -1,3 +1,4 @@
+import random
 from tkinter import filedialog
 
 
@@ -38,3 +39,6 @@ class playlistController:
     
     def get_index_current(self):
         return self.__index_current
+    
+    def suffle(self):
+        random.shuffle(self.__song_arr)
