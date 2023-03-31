@@ -12,6 +12,9 @@ class playlistController:
         for song in songs:
             self.__song_arr.append(song)
 
+    def get_song(self,index):
+        return self.__song_arr[index]
+
     def get_song_arr(self):
         return self.__song_arr
 
@@ -29,4 +32,9 @@ class playlistController:
         else:
             self.__index_current -= 1
 
+        return self.__index_current
+    def set_index_current(self, index):
+        self.__index_current = index
+    
+    def get_index_current(self):
         return self.__index_current
