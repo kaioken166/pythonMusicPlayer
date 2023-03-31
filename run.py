@@ -7,12 +7,6 @@ from tkinter import ttk
 
 from GUI.playlist import Playlist
 from GUI.song import Song
-from controller.songController import SongController
-from controller.playlistController import playlistController
-
-
-
-# from tkinter.ttk import *
 
 # Create a root object
 root = tk.Tk()
@@ -93,16 +87,17 @@ play_button = MyButton(button_frame, image_path='image/play-button.png', img_siz
                        command=lambda: my_playlist.play_song_GUI())
 play_button.grid(row=0, column=2, pady=5, padx=5)
 
-pause_button = MyButton(button_frame, image_path='image/pause-button.png',command=lambda: my_playlist.pause_song())
+pause_button = MyButton(button_frame, image_path='image/pause-button.png', command=lambda: my_playlist.pause_song())
 pause_button.grid(row=0, column=3, pady=5, padx=5)
 
-stop_button = MyButton(button_frame, image_path='image/stop-button.png',command=lambda: my_playlist.stop_song())
+stop_button = MyButton(button_frame, image_path='image/stop-button.png', command=lambda: my_playlist.stop_song())
 stop_button.grid(row=0, column=4, padx=5, pady=5)
 
 separator2 = Separator(button_frame, orient=VERTICAL)
 separator2.grid(row=0, column=5, sticky='ns')
 
-previous_button = MyButton(button_frame, image_path='image/back-button.png', command=lambda: my_playlist.previous_song_GUI())
+previous_button = MyButton(button_frame, image_path='image/back-button.png',
+                           command=lambda: my_playlist.previous_song_GUI())
 previous_button.grid(row=0, column=6, padx=5, pady=5)
 
 next_button = MyButton(button_frame, image_path='image/next-button.png', command=lambda: my_playlist.next_song_GUI())
@@ -139,7 +134,7 @@ vol_frame.grid(row=3, column=1, pady=10, sticky='e')
 
 
 mute_button = MyButton(vol_frame, image_path='image/volume-up.png',
-                       command=lambda: my_playlist.mute_song(mute_button= mute_button))
+                       command=lambda: my_playlist.mute_song(mute_button=mute_button))
 
 mute_button.grid(row=0, column=0, pady=5, padx=5)
 
@@ -149,8 +144,6 @@ volume_slider.set(100)
 
 # Pack the scale widget below the button frame
 volume_slider.grid(row=0, column=1, padx=5, pady=10)
-
-
 
 # End
 
