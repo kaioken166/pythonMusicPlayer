@@ -70,7 +70,7 @@ class Player:
         index = self.play_list_controller.get_index_current()
 
         # Get the name of the selected song
-        name = self.song_list.get(index)
+        # name = self.song_list.get(index)
 
         # Update the label with the name of the selected song
         # current_song_label.config(text=f"Playing {name}")
@@ -110,6 +110,19 @@ class Player:
         self.song_list.selection_set(index)
         self.update_play_song()
         
+    def repeat_song(self):
+        index = self.play_list_controller.get_index_current()
+        
+        # Play the new song
+        path = self.play_list_controller.get_song(index=index)
+        self.song_controller.play_song(path=path)
+        self.song_list.selection_clear(0, END)
+        self.song_list.selection_set(index)
+
+        # Select the next item in the listbox
+        self.song_list.selection_clear(0, END)
+        self.song_list.selection_set(index)
+        self.update_play_song()
         
     def mute_song(self,mute_button):
         self.mute_button = mute_button
@@ -135,7 +148,10 @@ class Player:
         if self.song_controller.check_stop():
             return
         if  self.current_time == int(self.song_controller.get_time_len()):
-            self.next_song_GUI()
+            if self.play_list_controller.check_repeat():
+                self.repeat_song()
+            else:
+                self.next_song_GUI()
         elif self.song_slider.get()!= self.current_time:  
             self.song_controller.play_in_time(time = self.song_slider.get())
             self.time_skip = int (self.song_slider.get())
@@ -143,7 +159,7 @@ class Player:
             
         self.current_time = int (self.song_controller.get_current_time()) + self.time_skip
         # print(f'{self.current_time}/{self.song_controller.get_time_len()}')
-        self.song_slider.config(to=self.song_controller.get_time_len())
+        self.song_slider.config(to=self.song_controller.get_time_len()-1)
         converted_current_time = time.strftime('%M:%S', time.gmtime(self.current_time))
         self.time_lable.config(text=f'{converted_current_time}')
         self.song_slider.set(int(self.current_time))
@@ -157,3 +173,11 @@ class Player:
             mute_button.change_image(image_path='image/volume-up.png')
         self.__volume_slider = volume_slider
         self.song_controller.set_volume(value)
+
+    def repeat(self,repeat_button):
+        self.play_list_controller.repeat()
+        if self.play_list_controller.check_repeat():
+            repeat_button.change_image(image_path='image/repeat-on.png')
+        else:
+            repeat_button.change_image(image_path='image/repeat-off.png')
+            
