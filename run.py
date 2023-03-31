@@ -42,8 +42,12 @@ time_label = Label(button_frame, text="00:00", font="Arial 16")
 song_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
 song_slider.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10, padx=20)
 
+# Create a label to show the current song
+current_song = Label(root, text="No song selected", font=("Arial", 16))
+current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
+
 # Create a listbox to display songs
-my_player = Player(list_frame=list_frame,song_slider=song_slider,time_label=time_label)
+my_player = Player(list_frame=list_frame,song_slider=song_slider,time_label=time_label,current_song=current_song)
 my_song = Song()
 
 # def add_song_and_playlist():
@@ -75,13 +79,6 @@ label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
 album_image = MyLabel(label_frame, image_path='image/Music_Isometric.png', img_size=(620, 515))
 album_image.pack(fill='x')  # inside label_frame
-
-
-
-# Create a label to show the current song
-current_song = Label(root, text="No song selected", font=("Arial", 16))
-current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
-
 
 # button_frame.config(background='#353839')
 button_frame.grid(row=3, column=0, pady=10, sticky='w')
