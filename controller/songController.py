@@ -27,7 +27,9 @@ class SongController:
     def get_time_len(self, song=False):
         if not song:
             song = self.__path_current_song
-
+        song = MP3(self.__path_current_song)
+        song_length = song.info.length
+        return song_length
 
     def get_current_time(self):
         return self.__mixer.music.get_pos()/1000 
