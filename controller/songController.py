@@ -27,7 +27,9 @@ class SongController:
     def get_time_len(self, song=False):
         if not song:
             song = self.__path_current_song
-
+        song = MP3(self.__path_current_song)
+        song_length = song.info.length
+        return song_length
 
     def get_current_time(self):
         return self.__mixer.music.get_pos()/1000 
@@ -78,6 +80,8 @@ class SongController:
         else:
             self.__mute = True
             self.__mixer.music.set_volume(0)
+    
+    def check_mute(self):
         return self.__mute
 
     def stop_music(self):
@@ -85,4 +89,9 @@ class SongController:
         
     def check_stop(self):
         return self.__stop
-
+    
+    def set_volume(self, value):
+        self.__mixer.music.set_volume(value)
+    
+    def get_volume(self):
+        return self.__mixer.music.get_volume()

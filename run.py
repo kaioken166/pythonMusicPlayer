@@ -42,8 +42,12 @@ time_label = Label(button_frame, text="00:00", font="Arial 16")
 song_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
 song_slider.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10, padx=20)
 
+# Create a label to show the current song
+current_song = Label(root, text="No song selected", font=("Arial", 16))
+current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
+
 # Create a listbox to display songs
-my_player = Player(list_frame=list_frame,song_slider=song_slider,time_label=time_label)
+my_player = Player(list_frame=list_frame,song_slider=song_slider,time_label=time_label,current_song=current_song)
 my_song = Song()
 
 # def add_song_and_playlist():
@@ -75,13 +79,6 @@ label_frame.grid(row=0, column=0, columnspan=2, sticky='ew')
 
 album_image = MyLabel(label_frame, image_path='image/Music_Isometric.png', img_size=(620, 515))
 album_image.pack(fill='x')  # inside label_frame
-
-
-
-# Create a label to show the current song
-current_song = Label(root, text="No song selected", font=("Arial", 16))
-current_song.grid(row=2, column=0, sticky='', columnspan=3, pady=10)
-
 
 # button_frame.config(background='#353839')
 button_frame.grid(row=3, column=0, pady=10, sticky='w')
@@ -116,10 +113,10 @@ next_button = MyButton(button_frame, image_path='image/next-button.png', command
 
 next_button.grid(row=0, column=7, padx=5, pady=5)
 
-shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png')
+shuffle_button = MyButton(button_frame, image_path='image/shuffle-off.png',command=lambda:my_player.shuffle())
 shuffle_button.grid(row=0, column=8, padx=5, pady=5)
 
-repeat_button = MyButton(button_frame, image_path='image/repeat-off.png')
+repeat_button = MyButton(button_frame, image_path='image/repeat-off.png',command=lambda:my_player.repeat(repeat_button=repeat_button))
 repeat_button.grid(row=0, column=9, padx=5, pady=5)
 
 separator3 = Separator(button_frame, orient=VERTICAL)
@@ -152,7 +149,9 @@ mute_button = MyButton(vol_frame, image_path='image/volume-up.png', command=lamb
 mute_button.grid(row=0, column=0, pady=5, padx=5)
 
 # Create a scale widget with horizontal orientation and range from 0 to 100
-volume_slider = ttk.Scale(vol_frame, from_=0, to=100, orient=HORIZONTAL)  # ttk for better UI
+volume_slider = ttk.Scale(vol_frame, from_=0, to=1, orient=HORIZONTAL,
+                          command= lambda x: my_player.volume(volume_slider=volume_slider,mute_button=mute_button, value=float(x)) )# ttk for better UI
+# volume_slider = ttk.Scale(vol_frame, from_=0, to=100, orient=HORIZONTAL)
 volume_slider.set(100)
 
 # Pack the scale widget below the button frame
