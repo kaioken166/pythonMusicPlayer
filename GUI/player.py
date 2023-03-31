@@ -4,7 +4,8 @@ from controller.songController import SongController
 import time
 
 class Player:
-    def __init__(self, list_frame,song_slider,time_label):
+    def __init__(self, list_frame,song_slider,time_label,current_song):
+        self.current_song=current_song
         self.current_time=0
         self.time_skip=0
         self.play_list_controller = playlistController()
@@ -25,6 +26,8 @@ class Player:
         scrollbar.config(command=self.song_list.yview)
 
     def update_play_song(self):
+        name = self.song_controller.get_info().get('name')
+        self.current_song.config(text=f'Playing {name}')
         self.time_skip = 0
 
     def open_playlist(self):
