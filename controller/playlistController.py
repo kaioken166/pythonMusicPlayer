@@ -6,7 +6,7 @@ class playlistController:
     def __init__(self):
         self.__repeat = False
         self.__song_arr = []
-        self.__index_current = 0
+        self.__index_current = -1
 
     def add_song(self):
         songs = filedialog.askopenfilenames(
