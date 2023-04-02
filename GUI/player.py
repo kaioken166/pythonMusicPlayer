@@ -45,7 +45,8 @@ class Player:
             
     def open_files(self):
         self.play_list_controller.add_song()
-        self.add_songs(self.play_list_controller.get_song_arr())
+        self.upadate_playlist()
+        # self.add_songs(self.play_list_controller.get_song_arr())
         
     def upadate_playlist(self):
         self.song_list.delete(0,self.song_list.size())
