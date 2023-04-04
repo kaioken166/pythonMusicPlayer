@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from tkinter.ttk import Separator
+
 from GUI.album_label import MyLabel
 from GUI.button_function import MyButton
-from tkinter.ttk import Separator
 from GUI.player import Player
 from GUI.song import Song
 

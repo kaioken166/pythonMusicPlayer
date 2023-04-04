@@ -1,12 +1,13 @@
 # Import tkinter and ttk libraries
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 # from tkinter import Button
 from tkinter.ttk import *
-from PIL import Image, ImageTk
+
 # import time
 import pygame
-import tkinter as tk
+from PIL import Image, ImageTk
 
 # Create a window object
 window = tk.Tk()

@@ -1,7 +1,7 @@
-import pygame
-from mutagen.mp3 import MP3
 import eyed3
+import pygame
 from PIL import ImageTk, Image
+from mutagen.mp3 import MP3
 
 
 class SongController:

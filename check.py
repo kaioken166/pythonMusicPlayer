@@ -1,6 +1,8 @@
 import datetime
-import pygame
 import tkinter as tk
+
+import pygame
+
 from controller.songController import SongController
 
 

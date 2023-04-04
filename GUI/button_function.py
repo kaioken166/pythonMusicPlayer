@@ -1,5 +1,6 @@
-from PIL import Image, ImageTk
 import tkinter as tk
+
+from PIL import Image, ImageTk
 
 
 def on_enter(e):
