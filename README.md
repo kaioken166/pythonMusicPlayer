@@ -34,7 +34,7 @@ A Python program to listen Music!
 - Play Selected song from Playlist
 
 ### How to install
-
+Please visit our official page for more information.
 
 ### How to use
 
