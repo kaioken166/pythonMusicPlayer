@@ -1,7 +1,7 @@
-import pygame
-from mutagen.mp3 import MP3
 import eyed3
+import pygame
 from PIL import ImageTk, Image
+from mutagen.mp3 import MP3
 
 
 class SongController:
@@ -23,7 +23,6 @@ class SongController:
     def play_in_time(self, time):
         self.__mixer.music.play(start=time)
 
-
     def get_time_len(self, song=False):
         if not song:
             song = self.__path_current_song
@@ -32,8 +31,7 @@ class SongController:
         return song_length
 
     def get_current_time(self):
-        return self.__mixer.music.get_pos()/1000 
-
+        return self.__mixer.music.get_pos() / 1000
 
     def check_pause(self):
         return self.__pause
@@ -61,7 +59,7 @@ class SongController:
     def check_if_finished(self):
         # return True if finish
         return not (self.__pause or self.__mixer.music.get_busy())
-    
+
     def get_info(self, path=1):
         if path == 1:
             path = self.__path_current_song
@@ -80,18 +78,18 @@ class SongController:
         else:
             self.__mute = True
             self.__mixer.music.set_volume(0)
-    
+
     def check_mute(self):
         return self.__mute
 
     def stop_music(self):
         self.__mixer.music.stop()
-        
+
     def check_stop(self):
         return self.__stop
-    
+
     def set_volume(self, value):
         self.__mixer.music.set_volume(value)
-    
+
     def get_volume(self):
         return self.__mixer.music.get_volume()

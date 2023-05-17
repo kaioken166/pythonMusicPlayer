@@ -1,6 +1,8 @@
 import datetime
-import pygame
 import tkinter as tk
+
+import pygame
+
 from controller.songController import SongController
 
 
@@ -17,7 +19,7 @@ class TimeLabel(tk.Label):
         self.config(text=f"{song_time}")
 
         if not pygame.mixer.music.get_busy():
-            song_length = self.song.get_time()
+            song_length = self.song.get_time_len()
             song_length = datetime.timedelta(seconds=song_length)
             song_length = str(song_length).split('.')[0]
             self.config(text=f"{song_length}")
